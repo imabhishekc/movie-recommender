@@ -6,7 +6,7 @@ import os
 
 st.title('Movie Recommendation System')
 
-TMDB_BEARER = st.secrets("TMDB_BEARER")
+TMDB_BEARER = st.secrets["TMDB_BEARER"]
 
 def fetch_poster(movie_id):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?language=en-US"
