@@ -39,6 +39,7 @@ download_file_from_hf("similarity.pkl")
 movies_list = pickle.load(open('movies_dictionary.pkl', 'rb'))
 similarity = pickle.load(open('similarity.pkl', 'rb'))
 
+movies = pd.DataFrame(movies_list)
 
 def recommend(movie):
     movie_index = movies[movies['title'] == movie].index[0]
@@ -54,10 +55,6 @@ def recommend(movie):
         recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies, recommended_movies_posters
 
-movies_list = pickle.load(open('movies_dictionary.pkl', 'rb'))
-similarity = pickle.load(open('similarity.pkl', 'rb'))
-
-movies = pd.DataFrame(movies_list)
 
 selected_movies = st.selectbox(
 'What movie you would like to watch?',
