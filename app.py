@@ -24,7 +24,7 @@ def fetch_poster(movie_id):
 
 # Function to download files from Hugging Face
 def download_file_from_hf(filename):
-    url = f"https://huggingface.co/datasets/imabhishekc/movie-recommender-files/blob/main/similarity.pkl"
+    url = f"https://huggingface.co/datasets/imabhishekc/movie-recommender-files/resolve/main/{filename}"
     if not os.path.exists(filename):
         print(f"Downloading {filename} from Hugging Face...")
         r = requests.get(url)
