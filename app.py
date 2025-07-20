@@ -21,8 +21,24 @@ def fetch_poster(movie_id):
     data = response.json()
     return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
 
+
+# Function to download files from Hugging Face
+def download_file_from_hf(filename):
+    url = f"https://huggingface.co/datasets/imabhishekc/movie-recommender-files/blob/main/similarity.pkl"
+    if not os.path.exists(filename):
+        print(f"Downloading {filename} from Hugging Face...")
+        r = requests.get(url)
+        with open(filename, 'wb') as f:
+            f.write(r.content)
+        print(f"{filename} downloaded.")
+
+# Download large files if not already present
+download_file_from_hf("similarity.pkl")
+
+# Load them
 movies_list = pickle.load(open('movies_dictionary.pkl', 'rb'))
-movies = pd.DataFrame(movies_list)
+similarity = pickle.load(open('similarity.pkl', 'rb'))
+
 
 def recommend(movie):
     movie_index = movies[movies['title'] == movie].index[0]
@@ -38,7 +54,10 @@ def recommend(movie):
         recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies, recommended_movies_posters
 
+movies_list = pickle.load(open('movies_dictionary.pkl', 'rb'))
 similarity = pickle.load(open('similarity.pkl', 'rb'))
+
+movies = pd.DataFrame(movies_list)
 
 selected_movies = st.selectbox(
 'What movie you would like to watch?',
