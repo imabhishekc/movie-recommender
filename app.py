@@ -3,13 +3,10 @@ import pickle
 import pandas as pd
 import requests
 import os
-from dotenv import load_dotenv
 
 st.title('Movie Recommendation System')
 
-load_dotenv()
-
-TMDB_BEARER = os.getenv("TMDB_BEARER")
+TMDB_BEARER = st.secrets("TMDB_BEARER")
 
 def fetch_poster(movie_id):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?language=en-US"
@@ -33,6 +30,7 @@ def download_file_from_hf(filename):
         print(f"{filename} downloaded.")
 
 # Download large files if not already present
+download_file_from_hf("movies_dictionary.pkl")
 download_file_from_hf("similarity.pkl")
 
 # Load them
